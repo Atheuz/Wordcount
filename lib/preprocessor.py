@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 class Preprocessor(object):
     def __init__(self, input_file):
         self.input_file = input_file
-        self.text_loaded = open(self.input_file).read()
+        self.text_loaded = open(self.input_file, encoding='utf8').read()
         
     def remove_punctuation(self, text):
         """Remove punctuation in a string.
@@ -17,7 +17,7 @@ class Preprocessor(object):
 
         Punctuation defined as string.punctuation, that is: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~   
         """
-        punctuation_filter = re.compile(r'([%s])+'.format(re.escape(string.punctuation)), re.UNICODE) # Use this to remove all punctuation defined in !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
+        punctuation_filter = re.compile(r'([%s])+' % re.escape(string.punctuation), re.UNICODE) # Use this to remove all punctuation defined in !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
         stripped = punctuation_filter.sub("", text)
         return stripped
 
@@ -63,12 +63,17 @@ class Preprocessor(object):
         input: Input text string that should be tokenized.
         output: Output list of tokens.
 
-        Creates a list of tokens based on the text using regex splitting on Whitespace characters: \W
+        Creates a list of tokens split on 
         """
     
         tokens = []
-        split_text = re.split("\W+", text)
+        split_text = text.split()
         return split_text
+
+    def to_unicode(self, text, encoding='utf8', errors='strict'):
+        if isinstance(text, str):
+            return text
+        return str(text, encoding, errors=errors)
             
     def preprocess(self):
         text = self.remove_punctuation(self.text_loaded)
