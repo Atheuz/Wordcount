@@ -70,6 +70,14 @@ class Preprocessor(object):
         return split_text
             
     def preprocess(self, input):
+        """Apply filters to the input.
+        
+        input: Input text string to be preprocessed.
+        output: Output list of preprocessed tokens.
+
+        Filters would be specified parametrically but for this project this is 'good enough'.
+        
+        """
         text = self.remove_punctuation(input)
         tokens = self.tokenize(text)
         tokens = self.to_lowercase(tokens)
