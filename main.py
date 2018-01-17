@@ -1,5 +1,5 @@
-from Preprocessor import Preprocessor
-from Wordcounter import Wordcounter
+from lib import Preprocessor
+from lib import Wordcounter
 
 def main():
     file = "input/cv000_tok-11609.txt"
