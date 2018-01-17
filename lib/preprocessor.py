@@ -5,9 +5,8 @@ from nltk.corpus import stopwords
 
 
 class Preprocessor(object):
-    def __init__(self, input_file):
-        self.input_file = input_file
-        self.text_loaded = open(self.input_file, encoding='utf8').read()
+    def __init__(self):
+        pass
         
     def remove_punctuation(self, text):
         """Remove punctuation in a string.
@@ -69,14 +68,9 @@ class Preprocessor(object):
         tokens = []
         split_text = text.split()
         return split_text
-
-    def to_unicode(self, text, encoding='utf8', errors='strict'):
-        if isinstance(text, str):
-            return text
-        return str(text, encoding, errors=errors)
             
-    def preprocess(self):
-        text = self.remove_punctuation(self.text_loaded)
+    def preprocess(self, input):
+        text = self.remove_punctuation(input)
         tokens = self.tokenize(text)
         tokens = self.to_lowercase(tokens)
         #tokens = self.remove_stopwords(tokens)
