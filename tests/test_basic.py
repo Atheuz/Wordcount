@@ -98,3 +98,15 @@ class TestWordcounter(unittest.TestCase):
         counts2 = wc2.count()
 
         self.assertListEqual([x[1] for x in counts], [x[1] for x in counts2])
+
+    def test_multiple_methods(self):
+        file = "input/cv000_tok-11609.txt"
+        corpus = open(file, encoding='utf8').read()
+        pp = Preprocessor()
+        tokens = pp.preprocess(corpus)
+        wc = Wordcounter(tokens)
+        counts = wc.count()
+        counts2 = wc.count_counter()
+        counts3 = wc.count_pd()
+        self.assertListEqual([x[1] for x in counts], [x[1] for x in counts2])
+        self.assertListEqual([x[1] for x in counts2], [x[1] for x in counts3])
