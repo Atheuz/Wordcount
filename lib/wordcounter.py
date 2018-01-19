@@ -1,4 +1,5 @@
 import collections
+import pandas as pd
 
 class Wordcounter(object):
     def __init__(self, tokens):
@@ -30,3 +31,18 @@ class Wordcounter(object):
         counts = list(collections.Counter(self.tokens).items())
         val = sorted(counts, key=lambda x: x[1], reverse=True)
         return val
+
+    def count_pd(self):
+        """Returns a list of tokens and their associated count.
+
+        Output: A list of tokens and their associated count, sorted by count.
+        
+        Uses pandas
+        """
+        df = pd.DataFrame(self.tokens, columns = ['Word'])
+        counts = df.apply(pd.value_counts).reset_index()
+        counts.columns = ['Word','Count']
+        count_lst = [tuple(x) for x in counts.to_records(index=False)]
+        return count_lst
+        
+        
